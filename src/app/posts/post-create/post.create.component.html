@@ -1,1 +1,7 @@
-<h3>from post create component</h3>
+<mat-card>
+    <mat-form-field>
+        <textarea rows="6" matInput [(ngModel)]="enteredValue" [ngModelOptions]="{standalone: true}"></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="onAddPost()">Save</button>
+</mat-card>
+<p>{{ newPost }}</p>
