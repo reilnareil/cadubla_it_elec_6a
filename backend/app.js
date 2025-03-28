@@ -1,47 +1,32 @@
-// const { ContentChild } = require('@angular/core');
+const path = require("path");
 const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const app = express();
-const bodyParser = require('body-parser')
+
+const postsRoutes = require('./routes/posts');
+
+mongoose.connect("mongodb+srv://reilancadubla:Un4tvsKjRhnZiez5@cluster0.iwilt.mongodb.net/angulardb?retryWrites=true&w=majority&appName=Cluster0")
+    .then(() => {
+        console.log('Connected to the database');
+    })
+    .catch(() => {
+        console.log('Connection Failed');
+    });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use("/images", express.static(path.join("backend/images")));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', "*");
     res.setHeader("Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept");
-
     res.setHeader("Access-Control-Allow-Methods",
-        "GET, POST, PATCH, DELETE, OPTIONS")
+        "GET, POST, PATCH, PUT, DELETE, OPTIONS")
     next();
-})
-
-app.post("/api/posts", (req, res, next) => {
-    const post = req.body;
-    console.log(post);
-    res.status(201).json({
-        message: 'Post added successfully'
-    });
-})
-
-app.get("/api/posts", (req, res, next) => {
-    const posts = [
-        {
-            id: "eoiyaruia",
-            title: "first title from server-side",
-            content: "first content from server-side"
-        },
-        {
-            id: "ehaklajle",
-            title: "second title from server-side",
-            content: "second content from server-side"
-        }
-    ];
-
-    res.status(200).json({
-        message: 'Posts successfully fetched',
-        posts: posts
-    });
 });
+
+app.use("/api/posts", postsRoutes);
 
 module.exports = app;
