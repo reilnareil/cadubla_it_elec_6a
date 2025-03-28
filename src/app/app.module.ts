@@ -15,7 +15,11 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HeaderComponent } from './header/header.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
-
+import { AppRoutingModule } from './app-routing.module';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+// import { FilePickerService } from '../file-picker.service';
+// import { FilePickerService } from 'angular-filepicker';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -27,17 +31,18 @@ import { PostListComponent } from './posts/post-list/post-list.component';
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    
     MatFormFieldModule,
-    
     MatInputModule,
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,
     MatExpansionModule,
-    HttpClientModule
+    MatProgressSpinnerModule,
+    HttpClientModule,
+    ReactiveFormsModule
     
   ],
   providers: [],
